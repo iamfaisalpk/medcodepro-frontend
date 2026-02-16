@@ -1,6 +1,6 @@
-import { forwardRef, InputHTMLAttributes, ReactNode } from 'react';
-import { cn } from '@/utils/cn';
-import { motion, AnimatePresence } from 'framer-motion';
+import { forwardRef, InputHTMLAttributes, ReactNode } from "react";
+import { cn } from "@/utils/cn";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: string;
@@ -11,35 +11,47 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, error, label, leftIcon, rightIcon, containerClassName, ...props }, ref) => {
+  (
+    {
+      className,
+      error,
+      label,
+      leftIcon,
+      rightIcon,
+      containerClassName,
+      ...props
+    },
+    ref,
+  ) => {
     return (
-      <div className={cn("w-full space-y-2", containerClassName)}>
+      <div className={cn("w-full space-y-1.5", containerClassName)}>
         {label && (
-          <div className="flex items-center justify-between mb-1">
-            <label className="block text-[13px] font-bold text-[#384959] tracking-tight ml-0.5">
+          <div className="flex items-center justify-between">
+            <label className="block text-[11px] font-black text-[#6A89A7] uppercase tracking-[0.2em] ml-2">
               {label}
             </label>
           </div>
         )}
         <div className="group relative">
           {leftIcon && (
-            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#6A89A7] transition-all duration-300 pointer-events-none z-10">
+            <div className="absolute left-6 top-0 bottom-0 flex items-center justify-center text-slate-400 group-focus-within:text-[#6A89A7] transition-all duration-300 pointer-events-none z-10">
               {leftIcon}
             </div>
           )}
           <input
             ref={ref}
             className={cn(
-              'flex h-12 w-full rounded-2xl border border-slate-200 bg-white/50 backdrop-blur-sm px-4 py-3 text-sm ring-offset-white transition-all duration-300 placeholder:text-slate-400 focus:outline-none focus:ring-4 focus:ring-[#6A89A7]/10 focus:border-[#6A89A7] disabled:cursor-not-allowed disabled:opacity-50 shadow-sm hover:border-slate-300',
-              leftIcon ? 'pl-12' : 'px-4',
-              rightIcon ? 'pr-12' : 'px-4',
-              error && 'border-red-400 focus:ring-red-500/10 focus:border-red-500',
-              className
+              "flex h-14 w-full rounded-2xl border-2 border-slate-100 bg-[#f8fafc]/50 backdrop-blur-sm py-4 text-sm font-bold text-[#384959] transition-all duration-300 placeholder:text-slate-300 focus:outline-none focus:ring-4 focus:ring-[#6A89A7]/5 focus:border-[#6A89A7] disabled:cursor-not-allowed disabled:opacity-50 shadow-sm hover:border-[#6A89A7]/20",
+              leftIcon ? "pl-[72px]" : "px-6",
+              rightIcon ? "pr-[72px]" : "px-6",
+              error &&
+                "border-red-100 focus:ring-red-500/5 focus:border-red-400 bg-red-50/20",
+              className,
             )}
             {...props}
           />
           {rightIcon && (
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 flex items-center justify-center z-10">
+            <div className="absolute right-6 top-0 bottom-0 flex items-center justify-center text-slate-400 z-10">
               {rightIcon}
             </div>
           )}
@@ -47,10 +59,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         <AnimatePresence mode="wait">
           {error && (
             <motion.p
-              initial={{ opacity: 0, x: -4 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -4 }}
-              className="text-[10px] font-black text-red-500 uppercase tracking-widest ml-1.5 pt-0.5"
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              className="text-[9px] font-black text-red-400 uppercase tracking-widest ml-3 pt-0.5"
             >
               {error}
             </motion.p>
@@ -58,9 +70,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         </AnimatePresence>
       </div>
     );
-  }
+  },
 );
 
-Input.displayName = 'Input';
+Input.displayName = "Input";
 
 export { Input };

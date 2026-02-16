@@ -202,66 +202,72 @@ export default function AdminQuizManagement() {
   };
 
   return (
-    <div className="max-w-[1600px] mx-auto space-y-12 pb-32">
-      {/* Premium Header */}
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
-        <div className="space-y-6">
+    <div className="max-w-[1700px] mx-auto space-y-20 pb-40">
+      {/* Master Audit Intelligence Header */}
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12">
+        <div className="space-y-8">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="inline-flex items-center gap-3 px-5 py-2.5 bg-[#BDDFEC]/20 rounded-full border border-[#BDDFEC]/40"
+            className="inline-flex items-center gap-4 px-6 py-3 bg-[#6A89A7]/5 rounded-full border border-[#6A89A7]/10"
           >
             <ShieldCheck className="h-4 w-4 text-[#6A89A7]" />
-            <span className="text-[10px] font-black text-[#6A89A7] uppercase tracking-[0.3em]">
-              Validation Control Active
+            <span className="text-[10px] font-black text-[#6A89A7] uppercase tracking-[0.4em]">
+              Validation Control: Secure
             </span>
           </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl lg:text-7xl font-black text-[#384959] tracking-tighter"
+            className="text-5xl lg:text-9xl font-black text-[#384959] tracking-tighter leading-none"
           >
-            Audit <span className="text-[#6A89A7]">Engineer</span>
+            Audit{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-br from-[#BDDFEC] to-[#6A89A7]">
+              Engineer
+            </span>
           </motion.h1>
-          <p className="text-slate-500 font-bold tracking-tight text-xl max-w-2xl leading-relaxed">
-            Manage institutional question vaults, orchestrate module-wide
-            audits, and monitor clinical accuracy analytics.
+          <p className="text-slate-500 font-bold tracking-tight text-2xl max-w-3xl leading-relaxed">
+            Manage institutional knowledge vaults, orchestrate module-wide
+            audits, and monitor clinical accuracy telemetry.
           </p>
         </div>
 
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="flex flex-wrap items-center gap-4"
+          className="flex flex-wrap items-center gap-6"
         >
           <button
             onClick={() => setBulkModalOpen(true)}
-            className="flex-1 lg:flex-none h-16 px-8 bg-white border border-slate-100 text-[#6A89A7] rounded-2xl font-black text-[10px] uppercase tracking-widest flex items-center justify-center gap-4 hover:shadow-xl hover:shadow-[#6A89A7]/5 transition-all active:scale-95"
+            className="h-20 px-10 bg-white border-2 border-slate-100 text-[#6A89A7] rounded-3xl font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-4 hover:shadow-2xl hover:shadow-[#6A89A7]/10 transition-all active:scale-95 group"
           >
-            <Upload className="h-4 w-4" /> Bulk Ingest
+            <Upload className="h-5 w-5 group-hover:-translate-y-1 transition-transform" />
+            Bulk Ingest
           </button>
           <button
             onClick={() => setQuizModalOpen(true)}
-            className="flex-1 lg:flex-none h-16 px-8 bg-[#384959] text-white rounded-2xl font-black text-[10px] uppercase tracking-widest flex items-center justify-center gap-4 hover:bg-[#6A89A7] transition-all shadow-2xl shadow-[#384959]/20 active:scale-95"
+            className="h-20 px-10 bg-[#384959] text-white rounded-3xl font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-4 hover:bg-[#6A89A7] transition-all shadow-2xl shadow-[#384959]/20 active:scale-95 group"
           >
-            <Database className="h-4 w-4" /> New Audit
+            <Database className="h-5 w-5 group-hover:scale-110 transition-transform" />
+            New Audit
           </button>
           <button
             onClick={() => setQuestionModalOpen(true)}
-            className="flex-1 lg:flex-none h-16 px-8 bg-black text-white rounded-2xl font-black text-[10px] uppercase tracking-widest flex items-center justify-center gap-4 hover:bg-slate-800 transition-all shadow-xl active:scale-95"
+            className="h-20 px-10 bg-black text-white rounded-3xl font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-4 hover:bg-slate-800 transition-all shadow-xl active:scale-95 group"
           >
-            <Plus className="h-4 w-4" /> Create Record
+            <Plus className="h-5 w-5 group-hover:rotate-90 transition-transform" />
+            Create Record
           </button>
         </motion.div>
       </div>
 
-      {/* Intelligence Cards */}
+      {/* Advanced Telemetry Dashboard */}
       <QuizStats questions={questions} chapters={chapters} />
 
-      {/* Control Surface */}
-      <div className="bg-white rounded-[4rem] shadow-2xl shadow-[#6A89A7]/5 border border-slate-50 overflow-hidden">
-        <div className="border-b border-slate-100 flex flex-col md:flex-row items-center justify-between p-6 bg-slate-50/30 gap-6">
-          <div className="flex bg-white p-2 rounded-3xl border border-slate-100 w-full md:w-fit overflow-x-auto scrollbar-none">
+      {/* Main Command Surface */}
+      <div className="bg-white rounded-[5rem] shadow-[0_50px_120px_-30px_rgba(106,137,167,0.15)] border border-slate-50 overflow-hidden">
+        <div className="border-b border-slate-100 flex flex-col xl:flex-row items-center justify-between p-10 lg:p-14 bg-slate-50/30 gap-10">
+          <div className="flex bg-white p-2.5 rounded-[2.5rem] border border-slate-100 w-full xl:w-fit overflow-x-auto scrollbar-none shadow-sm">
             {[
               { id: "analytics", label: "Intelligence", icon: BarChart3 },
               { id: "questions", label: "Question Vault", icon: Database },
@@ -271,40 +277,42 @@ export default function AdminQuizManagement() {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={cn(
-                  "flex items-center gap-3 px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap whitespace-nowrap",
+                  "flex items-center gap-4 px-10 py-5 rounded-3xl font-black text-[10px] uppercase tracking-[0.2em] transition-all whitespace-nowrap",
                   activeTab === tab.id
-                    ? "bg-[#384959] text-white shadow-xl"
-                    : "text-slate-400 hover:text-[#384959]",
+                    ? "bg-[#384959] text-white shadow-2xl shadow-[#384959]/30 scale-105 z-10"
+                    : "text-slate-400 hover:text-[#384959] hover:bg-slate-50",
                 )}
               >
-                <tab.icon className="h-4 w-4" />
+                <tab.icon className="h-5 w-5" />
                 {tab.label}
               </button>
             ))}
           </div>
 
-          <div className="flex items-center gap-4 w-full md:w-[400px]">
+          <div className="flex items-center gap-6 w-full xl:w-[500px] group">
             <div className="relative flex-1">
-              <Search className="absolute left-6 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-300" />
+              <Search className="absolute left-8 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-300 group-focus-within:text-[#6A89A7] transition-colors" />
               <input
                 type="text"
-                placeholder="Query records..."
+                placeholder="Query institutional records..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-14 pr-6 py-4 bg-white border border-slate-100 rounded-2xl outline-none focus:ring-4 focus:ring-[#6A89A7]/10 font-bold text-sm text-slate-500 placeholder:text-slate-300"
+                className="w-full pl-18 pr-8 py-6 bg-white border-2 border-transparent rounded-[2.5rem] outline-none focus:border-[#6A89A7]/20 focus:ring-8 focus:ring-[#6A89A7]/5 font-bold text-lg text-slate-600 placeholder:text-slate-300 transition-all shadow-sm"
               />
             </div>
           </div>
         </div>
 
-        <div className="p-10 lg:p-14 min-h-[500px]">
+        <div className="p-10 lg:p-20 min-h-[600px] relative">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-50/20 pointer-events-none" />
           <AnimatePresence mode="wait">
             {activeTab === "analytics" && (
               <motion.div
                 key="analytics"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                initial={{ opacity: 0, scale: 0.98, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 1.02, y: -20 }}
+                transition={{ type: "spring", damping: 25, stiffness: 200 }}
               >
                 <QuizAnalytics questions={questions} chapters={chapters} />
               </motion.div>
@@ -313,9 +321,10 @@ export default function AdminQuizManagement() {
             {activeTab === "questions" && (
               <motion.div
                 key="questions"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                initial={{ opacity: 0, scale: 0.98, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 1.02, y: -20 }}
+                transition={{ type: "spring", damping: 25, stiffness: 200 }}
               >
                 <QuestionList
                   questions={questions}
@@ -330,9 +339,10 @@ export default function AdminQuizManagement() {
             {activeTab === "attempts" && (
               <motion.div
                 key="attempts"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
+                initial={{ opacity: 0, scale: 0.98, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 1.02, y: -20 }}
+                transition={{ type: "spring", damping: 25, stiffness: 200 }}
               >
                 <AuditAttemptsList
                   attempts={attemptsData?.data || []}

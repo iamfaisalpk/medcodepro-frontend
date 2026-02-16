@@ -1,27 +1,36 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import { toast } from 'react-hot-toast';
-import { useRegisterMutation } from '@/store/authApiSlice';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import Link from 'next/link';
-import { User, Mail, Lock, CheckCircle2, Eye, EyeOff, ShieldCheck } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { toast } from "react-hot-toast";
+import { useRegisterMutation } from "@/store/authApiSlice";
+import { Button } from "@/components/ui/Button";
+import Link from "next/link";
+import {
+  User,
+  Mail,
+  Lock,
+  CheckCircle2,
+  Eye,
+  EyeOff,
+  ShieldCheck,
+} from "lucide-react";
+import { motion } from "framer-motion";
 
-const registerSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
-  confirmPassword: z.string()
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ["confirmPassword"],
-});
+const registerSchema = z
+  .object({
+    name: z.string().min(2, "Name must be at least 2 characters"),
+    email: z.string().email("Invalid email address"),
+    password: z.string().min(8, "Password must be at least 8 characters"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
 
 type RegisterFormValues = z.infer<typeof registerSchema>;
 
@@ -42,18 +51,22 @@ export default function RegisterPage() {
     try {
       const { confirmPassword, ...registerData } = data;
       const result = await registerUser(registerData).unwrap();
-      
+
       if (result.success) {
         if (result.otp) {
-          toast.success(`Dev Mode: User created! Your OTP is ${result.otp}`, { duration: 6000 });
-          router.push(`/verify-otp?email=${encodeURIComponent(data.email)}&code=${result.otp}`);
+          toast.success(`Dev Mode: User created! Your OTP is ${result.otp}`, {
+            duration: 6000,
+          });
+          router.push(
+            `/verify-otp?email=${encodeURIComponent(data.email)}&code=${result.otp}`,
+          );
         } else {
-          toast.success('Registration successful! Please verify your email.');
+          toast.success("Registration successful! Please verify your email.");
           router.push(`/verify-otp?email=${encodeURIComponent(data.email)}`);
         }
       }
     } catch (err: any) {
-      toast.error(err?.data?.error || 'Registration failed.');
+      toast.error(err?.data?.error || "Registration failed.");
     }
   };
 
@@ -63,99 +76,161 @@ export default function RegisterPage() {
       <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#6A89A7]/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-[#BDDFEC]/10 rounded-full blur-[120px] pointer-events-none" />
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-xl relative z-10"
       >
-        <div className="bg-white/90 backdrop-blur-3xl rounded-[3rem] p-8 md:p-14 shadow-[0_32px_64px_-16px_rgba(106,137,167,0.15)] border border-white">
-          <div className="text-center mb-12">
-            <motion.div 
+        <div className="bg-white/90 backdrop-blur-3xl rounded-[4rem] p-10 lg:p-16 shadow-[0_32px_64px_-16px_rgba(106,137,167,0.15)] border border-white">
+          <div className="text-center mb-16 space-y-6">
+            <motion.div
               whileHover={{ scale: 1.05, rotate: 5 }}
-              className="mx-auto flex h-20 w-20 items-center justify-center rounded-[1.5rem] bg-gradient-to-br from-[#6A89A7] to-[#384959] text-white shadow-xl shadow-[#6A89A7]/20 mb-6"
+              className="mx-auto flex h-24 w-24 items-center justify-center rounded-[2rem] bg-gradient-to-br from-[#6A89A7] to-[#384959] text-white shadow-2xl shadow-[#6A89A7]/20"
             >
-              <ShieldCheck className="h-10 w-10 text-[#BDDFEC]" />
+              <ShieldCheck className="h-12 w-12 text-[#BDDFEC]" />
             </motion.div>
-            <h2 className="text-4xl font-black text-[#384959] tracking-tight mb-2">
-              Join MedCodePro
-            </h2>
-            <p className="text-slate-500 font-semibold tracking-tight">
-              Experience the future of medical coding
-            </p>
+            <div className="space-y-2">
+              <h2 className="text-4xl lg:text-5xl font-black text-[#384959] tracking-tighter">
+                Join MedCodePro
+              </h2>
+              <p className="text-slate-400 font-bold tracking-tight text-lg leading-tight max-w-sm mx-auto">
+                Experience the <span className="text-[#6A89A7]">future</span> of
+                medical coding intelligence
+              </p>
+            </div>
           </div>
 
-          <form className="space-y-8" onSubmit={handleSubmit(onSubmit)}>
-            <div className="grid grid-cols-1 gap-6">
-              <Input
-                label="Full Name"
-                placeholder="Ex: John Harrison"
-                leftIcon={<User className="h-5 w-5" />}
-                error={errors.name?.message}
-                {...register('name')}
-              />
+          <form className="space-y-10" onSubmit={handleSubmit(onSubmit)}>
+            <div className="space-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-3">
+                  <label className="block text-xs font-black text-slate-600 uppercase tracking-[0.15em] pl-2">
+                    Institutional Name
+                  </label>
+                  <div className="relative">
+                    <User className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 pointer-events-none z-10" />
+                    <input
+                      type="text"
+                      placeholder="Ex: John Harrison"
+                      className={`w-full h-14 pl-14 pr-5 rounded-2xl border-2 ${
+                        errors.name
+                          ? "border-red-300 focus:border-red-500"
+                          : "border-slate-200 focus:border-[#6A89A7]"
+                      } bg-white/50 backdrop-blur-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-4 focus:ring-[#6A89A7]/10 transition-all font-medium`}
+                      {...register("name")}
+                    />
+                  </div>
+                  {errors.name && (
+                    <p className="text-xs text-red-500 pl-2 font-semibold">
+                      {errors.name.message}
+                    </p>
+                  )}
+                </div>
 
-              <Input
-                label="Professional Email"
-                placeholder="john@company.com"
-                type="email"
-                leftIcon={<Mail className="h-5 w-5" />}
-                error={errors.email?.message}
-                {...register('email')}
-              />
+                <div className="space-y-3">
+                  <label className="block text-xs font-black text-slate-600 uppercase tracking-[0.15em] pl-2">
+                    Registry Email
+                  </label>
+                  <div className="relative">
+                    <Mail className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 pointer-events-none z-10" />
+                    <input
+                      type="email"
+                      placeholder="john@institutional.com"
+                      className={`w-full h-14 pl-14 pr-5 rounded-2xl border-2 ${
+                        errors.email
+                          ? "border-red-300 focus:border-red-500"
+                          : "border-slate-200 focus:border-[#6A89A7]"
+                      } bg-white/50 backdrop-blur-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-4 focus:ring-[#6A89A7]/10 transition-all font-medium`}
+                      {...register("email")}
+                    />
+                  </div>
+                  {errors.email && (
+                    <p className="text-xs text-red-500 pl-2 font-semibold">
+                      {errors.email.message}
+                    </p>
+                  )}
+                </div>
+              </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Input
-                  label="Password"
-                  placeholder="••••••••"
-                  type={showPassword ? 'text' : 'password'}
-                  leftIcon={<Lock className="h-5 w-5" />}
-                  rightIcon={
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-3">
+                  <label className="block text-xs font-black text-slate-600 uppercase tracking-[0.15em] pl-2">
+                    Security Password
+                  </label>
+                  <div className="relative">
+                    <Lock className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 pointer-events-none z-10" />
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="••••••••"
+                      className={`w-full h-14 pl-14 pr-14 rounded-2xl border-2 ${
+                        errors.password
+                          ? "border-red-300 focus:border-red-500"
+                          : "border-slate-200 focus:border-[#6A89A7]"
+                      } bg-white/50 backdrop-blur-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-4 focus:ring-[#6A89A7]/10 transition-all font-medium`}
+                      {...register("password")}
+                    />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="text-slate-400 hover:text-[#6A89A7] transition-colors p-1 rounded-md focus:bg-slate-100"
+                      className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-300 hover:text-[#6A89A7] transition-all p-1.5 rounded-xl hover:bg-slate-50 focus:outline-none z-10"
                     >
-                      {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                      {showPassword ? (
+                        <EyeOff className="h-5 w-5" />
+                      ) : (
+                        <Eye className="h-5 w-5" />
+                      )}
                     </button>
-                  }
-                  error={errors.password?.message}
-                  {...register('password')}
-                />
+                  </div>
+                  {errors.password && (
+                    <p className="text-xs text-red-500 pl-2 font-semibold">
+                      {errors.password.message}
+                    </p>
+                  )}
+                </div>
 
-                <Input
-                  label="Confirm Password"
-                  placeholder="••••••••"
-                  type={showPassword ? 'text' : 'password'}
-                  leftIcon={<CheckCircle2 className="h-5 w-5" />}
-                  rightIcon={
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="text-slate-400 hover:text-[#6A89A7] transition-colors p-1 rounded-md focus:bg-slate-100"
-                    >
-                      {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                    </button>
-                  }
-                  error={errors.confirmPassword?.message}
-                  {...register('confirmPassword')}
-                />
+                <div className="space-y-3">
+                  <label className="block text-xs font-black text-slate-600 uppercase tracking-[0.15em] pl-2">
+                    Verify Password
+                  </label>
+                  <div className="relative">
+                    <CheckCircle2 className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 pointer-events-none z-10" />
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="••••••••"
+                      className={`w-full h-14 pl-14 pr-5 rounded-2xl border-2 ${
+                        errors.confirmPassword
+                          ? "border-red-300 focus:border-red-500"
+                          : "border-slate-200 focus:border-[#6A89A7]"
+                      } bg-white/50 backdrop-blur-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-4 focus:ring-[#6A89A7]/10 transition-all font-medium`}
+                      {...register("confirmPassword")}
+                    />
+                  </div>
+                  {errors.confirmPassword && (
+                    <p className="text-xs text-red-500 pl-2 font-semibold">
+                      {errors.confirmPassword.message}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
 
             <Button
               type="submit"
-              className="w-full h-[60px] rounded-[1.25rem] text-lg font-black shadow-2xl shadow-[#6A89A7]/20 hover:shadow-[#6A89A7]/40 transition-all uppercase tracking-widest mt-4"
+              className="w-full h-16 rounded-[2rem] text-lg font-black shadow-2xl shadow-[#6A89A7]/20 hover:shadow-[#6A89A7]/40 transition-all uppercase tracking-[0.2em] bg-[#384959]"
               isLoading={isLoading}
             >
-              Create Account
+              Establish Account
             </Button>
           </form>
 
-          <div className="mt-12 text-center">
-            <p className="text-slate-500 font-bold">
-              Already a member?{' '}
-              <Link href="/login" className="text-[#6A89A7] hover:underline underline-offset-8 decoration-2 decoration-[#BDDFEC]">
-                Log In
+          <div className="mt-16 text-center">
+            <p className="text-slate-400 font-bold">
+              Already have an identity?{" "}
+              <Link
+                href="/login"
+                className="text-[#6A89A7] font-black hover:underline underline-offset-8 decoration-2 decoration-[#BDDFEC]"
+              >
+                Authorize Session
               </Link>
             </p>
           </div>
