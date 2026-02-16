@@ -28,6 +28,7 @@ import {
   MonitorPlay,
   Share2,
   Bookmark,
+  Activity,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/utils/cn";
