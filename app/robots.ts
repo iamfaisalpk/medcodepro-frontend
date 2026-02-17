@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/dashboard/', '/api/'],
     },
-    sitemap: 'https://medcodepro.com/sitemap.xml',
+    sitemap: 'https://medcodepro-frontend.vercel.app/sitemap.xml',
   };
 }
