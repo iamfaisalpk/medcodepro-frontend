@@ -3,4 +3,5 @@ Allow: /
 Disallow: /api/
 Disallow: /dashboard/
 
-Sitemap: https://medcodepro.com/sitemap.xml
+Sitemap: https://medcodepro-frontend.vercel.app/sitemap.xml
+

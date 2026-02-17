@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://medcodepro.com",
+    url: "https://medcodepro-frontend.vercel.app",
     siteName: "MedCodePro",
     title: "MedCodePro | Medical Coding Excellence",
     description: "Streamline your medical coding workflow with our AI-powered platform.",
